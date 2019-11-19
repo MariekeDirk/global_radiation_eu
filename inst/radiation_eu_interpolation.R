@@ -181,7 +181,7 @@ cl<-makeCluster(nCore)
 registerDoParallel(cl)
 
 #make sure traincontrol --> allowParallel=FALSE
- test<-foreach(i=1:length(t.seq), 
+ test<-foreach(i=1:length(t.seq),
          .export=c('grid_eu_global_rad','bagEarthGCV_model_caret','write.ncdf','fast.mask.nn'),
          .packages=c("caret",'earth','gstat','sp',"doParallel","foreach","lubridate","raster","tidyr"),
          .combine = c) %dopar% {
