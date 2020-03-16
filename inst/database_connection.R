@@ -3,7 +3,7 @@ source("inst/database_key.R")
 
 get_all_ser_id<-function(var){
 dbin <- dbConnect(MySQL(), host=database_key$host,user=database_key$user, password=database_key$password, dbname=database_key$dbname)
-query_ser_id<-dbSendQuery(dbin,"select distinct ser_id from series_",var,";")
+query_ser_id<-dbSendQuery(dbin,paste0("select distinct ser_id from series_",var,";"))
 ser_id <- fetch(query_ser_id, n=-1)
 lapply( dbListConnections( dbDriver( drv = "MySQL")), dbDisconnect)
 return(ser_id)
@@ -23,12 +23,12 @@ group by sta_id;"))
 
 }
 
-get_metadata<-function(){
+get_metadata<-function(var="qq"){
   dbin <- dbConnect(MySQL(), host=database_key$host,user=database_key$user, password=database_key$password, dbname=database_key$dbname)
   query_metadata<-dbSendQuery(dbin,paste0("select distinct stations.sta_id as sta_id,stations.name as name,
   stations.lat/3600 as lat,stations.lon/3600 as lon,elev/10 as elev
   from stations,series,elements where series.sta_id=stations.sta_id
-  and series.ele_id=elements.ele_id and elements.ele_grp='qq';"))
+  and series.ele_id=elements.ele_id and elements.ele_grp='",var,"';"))
   metadata<-fetch(query_metadata, n=-1)
   lapply( dbListConnections( dbDriver( drv = "MySQL")), dbDisconnect)
   return(metadata)

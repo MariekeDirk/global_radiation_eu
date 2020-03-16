@@ -1,10 +1,17 @@
-source("inst/rscipts/database_connection.R")
+source("inst/database_connection.R")
 
 metadata<-get_metadata()
 blended_mixed<-get_blended_mixed_series()
 
-saveRDS(metadata,file = "/net/pc150400/nobackup/users/dirksen/data/radiation_europe/mysql_dump/stations_qq_nov.rds")
-saveRDS(blended_mixed,file = "/net/pc150400/nobackup/users/dirksen/data/radiation_europe/mysql_dump/series_qq_blended_mixed_nov.rds")
+saveRDS(metadata,file = "/net/pc150400/nobackup/users/dirksen/data/radiation_europe/mysql_dump/stations_qq_dec.rds")
+saveRDS(blended_mixed,file = "/net/pc150400/nobackup/users/dirksen/data/radiation_europe/mysql_dump/series_qq_blended_mixed_dec.rds")
+
+metadata<-get_metadata(var="cc")
+blended_mixed<-get_blended_mixed_series(var="cc")
+
+saveRDS(metadata,file = "/net/pc150400/nobackup/users/dirksen/data/radiation_europe/mysql_dump/stations_cc_nov.rds")
+saveRDS(blended_mixed,file = "/net/pc150400/nobackup/users/dirksen/data/radiation_europe/mysql_dump/series_cc_blended_mixed_nov.rds")
+
 
 #table for ecad online:
 table_else<-get_metadata_else()
