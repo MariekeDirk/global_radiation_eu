@@ -10,7 +10,7 @@ files_dir<-"/net/pc150400/nobackup/users/dirksen/data/radiation_europe/NCDF_mont
 
 qq_025<-stack(paste0(files_dir,"qq_ens_mean_0.25deg_reg_v20.0e.nc"))
 
-qq_025<-qq_025[[1:which(names(qq_025)=="X2018.12.31")]]
+qq_025<-qq_025[[which(names(qq_025)=="X2000.01.01"):which(names(qq_025)=="X2001.12.31")]]
 qq_dates<-as.Date(names(qq_025),format="X%Y.%m.%d")
 
 
@@ -25,6 +25,6 @@ remove.NAs.stack<-function(rast.stack){
 }
 
 qq_025<-remove.NAs.stack(qq_025)
-write.raster(qq_025,file="/net/pc150400/nobackup/users/dirksen/data/radiation_europe/climatology/qq_025.grd")
+writeRaster(qq_025,file="/net/pc150400/nobackup/users/dirksen/data/radiation_europe/climatology/qq_025_2000_non_hom.grd")
 
 stackApply(qq_025,1,fun=mean,na.rm=TRUE)
